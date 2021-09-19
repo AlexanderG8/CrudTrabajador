@@ -1,0 +1,86 @@
+﻿@model IEnumerable<CrudTrabajador.Models.spListarTrabajador>
+@{
+    ViewData["Title"] = "Lista de Trabajadores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+            <h3>Lista de Trabajadores</h3> 
+        </div>
+        <div class="col-sm-3">
+            <a class="btn btn-outline-success btn-outline-dark newTrabajador-dialog-window" asp-action="Create" asp-controller="Trabajador">Agregar Nuevo Trabajador</a>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <td>@Html.DisplayNameFor(m => m.Documento)</td> 
+                    <td>@Html.DisplayNameFor(m => m.Nombres)</td>
+                    <td>@Html.DisplayNameFor(m => m.Sexo)</td>
+                    <td>@Html.DisplayNameFor(m => m.NombreDepartamento)</td>
+                    <td>@Html.DisplayNameFor(m => m.NombreProvincia)</td>
+                    <td>@Html.DisplayNameFor(m => m.NombreDistrito)</td>
+                    <td>Acciones</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Documento</td> 
+                        <td>@item.Nombres</td>
+                        <td>@item.Sexo</td>
+                        <td>@item.NombreDepartamento</td>
+                        <td>@item.NombreProvincia</td>
+                        <td>@item.NombreDistrito</td>
+                        <td>
+                            <a asp-controller="Trabajador" asp-action="Edit" asp-route-IdTraba="@item.Id" class="btn btn-outline-warning EditarTrabajador-dialog-window">Editar</a>
+                        </td>
+                        <td>
+                            <a asp-controller="Trabajador" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger ElimiTrabajador-dialog-window">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+<div class="modal fade" id="NewTrabaj" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="cuerpoTrabaModal"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="EditTrabaj" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="cuerpoEditTrabaModal"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ElimiTrabaj" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="cuerpoElimiTrabaModal"></div>
+            </div>
+        </div>
+    </div>
+</div>

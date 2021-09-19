@@ -1,0 +1,28 @@
+﻿@model CrudTrabajador.Models.Trabajador
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-10">
+            <form method="post" asp-action="DeleteTraba"> 
+                <div class="form-group">
+                    <label   class="control-label">¿Desea eliminar de forma permanente al trabajador @Model.Nombres? </label>
+                    <input hidden name="idtrabajador" value="@Model.Id" class="form-control" />
+                </div> 
+                <div class="col col-sm-12 text-right">
+                    <div class="form-group">
+                        <input type="button" value="No" onclick="CerarDelete();" class="btn btn-outline-warning" />
+
+                        <input type="submit" value="Sí" class="btn btn-outline-danger" />
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

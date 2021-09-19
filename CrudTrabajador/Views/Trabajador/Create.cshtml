@@ -1,0 +1,94 @@
+﻿@model CrudTrabajador.Models.Trabajador
+ 
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>
+                Registrar Nuevo Trabajador
+            </h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-10">
+            <form method="post" asp-action="Create">
+                <div class="form-group">
+                    <label asp-for="TipoDocumento" class="control-label"></label>
+                    <input asp-for="TipoDocumento" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="NumDocumento" class="control-label"></label>
+                    <input asp-for="NumDocumento" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Nombres" class="control-label"></label>
+                    <input asp-for="Nombres" class="form-control" required/>
+                </div>
+
+                <div class="form-group">
+                    
+                    <label asp-for="Sexo" class="control-label"></label>
+                    <select asp-for="Sexo" class="form-control" asp-items="ViewBag.ListSexos"></select>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="IdDepartamento" class="control-label"></label>
+                    <select asp-for="IdDepartamento" class="form-control" asp-items="ViewBag.ListaDepar" id="Depar" onchange="ListarProvincias();"></select>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="IdProvincia" class="control-label"></label>
+                    <select asp-for="IdProvincia" class="form-control" id="Provi" onchange="ListarDistrito();"></select>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="IdDistrito" class="control-label"></label>
+                    <select asp-for="IdDistrito" class="form-control" id="Distri"  ></select>
+                </div>
+                <div class="col col-sm-12 text-right">
+                    <div class="form-group">
+                        <input type="submit" value="Guardar" class="btn btn-outline-warning" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    function ListarProvincias() {
+        var depar = $('#Depar').val();
+        $("#Provi").empty();
+        $("#Distri").empty();
+    $.ajax({
+        type: 'POST',
+        url: '@Url.Action("ListProvincias", "Trabajador")',
+        data: { IdDepar: depar },
+        success: function (result) {
+            $('#Provi').append('<option value="0">Seleccione</option>'); 
+            $.each(result, function (i, result) {
+                $('#Provi').append('<option value="' + result.id + '">' + result.nombreProvincia + '  </option>');
+            });
+        }
+    });
+    }
+       function ListarDistrito() {
+           var Prov = $('#Provi').val();
+           $("#Distri").empty();
+    $.ajax({
+        type: 'POST',
+        url: '@Url.Action("ListDistritos", "Trabajador")',
+        data: { idProvi: Prov },
+        success: function (result) {
+            $('#Distri').append('<option value="0">Seleccione</option>');
+            $.each(result, function (i, result) {
+                $('#Distri').append('<option value="' + result.id + '">' + result.nombreDistrito + '  </option>');
+            });
+        }
+    });
+}
+</script>
